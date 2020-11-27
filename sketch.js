@@ -1,57 +1,48 @@
-
 const Engine = Matter.Engine;
-const World = Matter.World;
+const World= Matter.World;
 const Bodies = Matter.Bodies;
-const Body = Matter.Body;
-const Constraint = Matter.Constraint
-
-function preload()
-{
-	
-}
+const Constraint = Matter.Constraint;
 
 function setup() {
-	createCanvas(800, 700);
-	
 
+  createCanvas(800,600);
+  myengine = Engine.create();
+  world = myengine.world;
+  roof = new Roof(400,25,800,50)
+  bob1 = new Bob(150,350,40)
+  chain1 = new Rope(bob1.body,roof.body,{x:-250,y:25})
+  bob2 = new Bob(250,350,40)
+  chain2 = new Rope(bob2.body,roof.body,{x:-150,y:25})
+  bob3 = new Bob(350,350,40)
+  chain3 = new Rope(bob3.body,roof.body,{x:0,y:25})
+  bob4 = new Bob(450,350,40)
+  chain4 = new Rope(bob4.body,roof.body,{x:150,y:25})
+  bob5 = new Bob(550,350,40)
+  chain5 = new Rope(bob5.body,roof.body,{x:250,y:25}) 
 
-	engine = Engine.create();
-	world = engine.world;
-
-	roof = new Roof(200,20,1700,30);
-	bob1= new Bob(100,400);
-	bob2 = new Bob(300,400);
-	rope1 = new Rope(bob1.body,roof.body,{x:40,y:20});
-	rope2 = new Rope(bob2.body,roof.body,{x:140,y:20});
-
-
-	Engine.run(engine);
-  
 }
-
 
 function draw() {
-  rectMode(CENTER);
-  background(255);
-  
+  Engine.update(myengine)
+  background(255,255,255);  
   roof.display();
-  bob2.display();
   bob1.display();
-rope1.display();
-rope2.display();
-  
-  drawSprites();
- 
+  bob2.display();
+  bob3.display();
+  bob4.display();
+  bob5.display();
+  chain1.display();
+  chain2.display();
+  chain3.display();
+  chain4.display();
+  chain5.display();
 }
 
-
-function keyPressed() {
-	if (keyCode === UP_ARROW) {
-
-	  Matter.Body.applyForce(bob1.body,bob1.body.position,{x:-50,y:-45});
-
-	}
+function keyPressed(){
+  if(keyCode === UP_ARROW){
+    Matter.Body.applyForce(bob1.body, bob1.body.position,{x:-180,y:-180})
+  }
+  if(keyCode === DOWN_ARROW){
+    Matter.Body.applyForce(bob5.body, bob5.body.position,{x:180,y:180})
+  }
 }
-
-
-
